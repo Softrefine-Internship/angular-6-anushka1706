@@ -7,18 +7,23 @@
           <label for="" class="field-label">Firstname</label>
           <input
             type="text"
-            placeholder="max 50 characters... "
+            placeholder="max 10 characters... "
             formControlName="firstname"
           />
         </div>
         <p
           class="invalid-message"
           *ngIf="
-            !myDetails.get('firstname')?.valid &&
-            myDetails.get('firstname')?.touched
+            myDetails?.get('firstname')?.touched &&
+            myDetails?.get('firstname')?.errors
           "
         >
-          Please enter valid name
+          <span *ngIf="myDetails?.get('firstname')?.hasError('required')">
+            First name is required.</span
+          >
+          <span *ngIf="myDetails?.get('firstname')?.hasError('maxlength')"
+            >Maximum 50 characters allowed.</span
+          >
         </p>
       </div>
       <div class="fields">
@@ -26,18 +31,23 @@
           <label for="" class="field-label">Lastname</label>
           <input
             type="text"
-            placeholder="max 50 characters... "
+            placeholder="max 10 characters... "
             formControlName="lastname"
           />
         </div>
         <p
           class="invalid-message"
           *ngIf="
-            !myDetails.get('lastname')?.valid &&
-            myDetails.get('lastname')?.touched
+            myDetails?.get('firstname')?.touched &&
+            myDetails?.get('firstname')?.errors
           "
         >
-          Please enter valid name
+          <span *ngIf="myDetails?.get('lastname')?.hasError('required')">
+            Last name is required.</span
+          >
+          <span *ngIf="myDetails?.get('lastname')?.hasError('maxlength')"
+            >Maximum 50 characters allowed.</span
+          >
         </p>
       </div>
       <div class="fields">
@@ -93,18 +103,20 @@
             </option>
           </select>
         </div>
-        <p class="invalid-message" *ngIf="!myDetails.get('country')?.valid && myDetails.get('country')?.touched">
+        <p
+          class="invalid-message"
+          *ngIf="
+            !myDetails.get('country')?.valid &&
+            myDetails.get('country')?.touched
+          "
+        >
           Please select country
         </p>
       </div>
-      <button
-      class="submit-btn"
-      type="submit"
-      [disabled]="!myDetails.valid"
-    >
-      Submit
-    </button>
-    
+      <button class="submit-btn" type="submit" [disabled]="!myDetails.valid">
+        Submit
+      </button>
+
       <button class="reset-btn" (click)="onReset()">Reset</button>
     </div>
   </form>
